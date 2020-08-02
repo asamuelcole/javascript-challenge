@@ -2,42 +2,33 @@
 var tableData = data;
 
 // YOUR CODE HERE!
-var tbody = d3.select("#target")
+var tbody = d3.select("tbody")
 
 console.log(tableData)
 
-data.forEach(function(ufoReport) {
-    console.log(ufoReport)
-});
-
-data.forEach(function(ufoReport) {
-    console.log(ufoReport);
-    var row = tbody.append("tr");
-});
-
-data.forEach(function(ufoReport) {
-    console.log(ufoReport);
-    var row = tbody.append("tr");
-
-    Object.entries(ufoReport).forEach(function([key, value]) {
-        console.log(key, value);
+function buildTable(data) {
+    // First, clear out any existing data (just a good idea)
+    tbody.html("");
+  
+    // Next, loop through each object in the data
+    // and append a row and cells for each value in the row
+    data.forEach((dataRow) => {
+      // Append a row to the table body
+      let row = tbody.append("tr");
+  
+      // Loop through each field in the dataRow and add
+      // each value as a table cell (td)
+      Object.values(dataRow).forEach((val) => {
+        let cell = row.append("td");
+          cell.text(val);
+        }
+      );
     });
-});
+  }
 
-data.forEach(function(ufoReport) {
-  console.log(ufoReport);
-  var row = tbody.append("tr");
 
-  Object.entries(ufoReport).forEach(function([key, value]) {
-    console.log(key, value);
-    // Append a cell to the row for each value
-    // in the weather report object
-    var cell = row.append("td");
-  });
-});
-
-// Step 5: Use d3 to update each cell's text with
-// weather report values (weekday, date, high, low)
+// Use d3 to update each cell's text with
+// ufo report values (weekday, date, high, low)
 data.forEach(function(ufoReport) {
   console.log(ufoReport);
   var row = tbody.append("tr");
@@ -50,8 +41,6 @@ data.forEach(function(ufoReport) {
   });
 });
 
-// Assign the data from `data.js` to a descriptive variable
-// var people = data;
 
 // Select the button
 var button = d3.select("#button");
@@ -59,11 +48,9 @@ var button = d3.select("#button");
 // Select the form
 var form = d3.select("#form");
 
-
-
 // Create event handlers 
 button.on("click", runEnter);
-form.on("submit",runEnter);
+form.on("submit", runEnter);
 
 // Complete the event handler function for the form
 function runEnter() {
@@ -80,8 +67,19 @@ function runEnter() {
   console.log(inputValue);
   console.log(tableData);
 
-  var filteredData = tableData.filter(data => tableData.Date === inputValue);
+  var filteredData = data.filter(data => data.Date === inputValue);
 
   console.log(filteredData);
+
+  data.html("");
+
+  filteredData.forEach(data =>{
+      console.log(data)
+      row = tbody.append("tr")
+      Object.entries(person).forEach(([key, value])=>{
+          console.log(key, value)
+          row.append("td").text(value)
+      })
+  })
 
 }
