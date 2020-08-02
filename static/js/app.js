@@ -43,7 +43,7 @@ data.forEach(function(ufoReport) {
 
 
 // Select the button
-var button = d3.select("#button");
+var button = d3.select("#filter-btn");
 
 // Select the form
 var form = d3.select("#form");
@@ -54,6 +54,7 @@ form.on("submit", runEnter);
 
 // Complete the event handler function for the form
 function runEnter() {
+    console.log("i am here")
 
   // Prevent the page from refreshing
   d3.event.preventDefault();
@@ -65,19 +66,20 @@ function runEnter() {
   var inputValue = inputElement.property("value");
 
   console.log(inputValue);
+  console.log(data[0].datetime)
   console.log(tableData);
 
-  var filteredData = data.filter(data => data.Date === inputValue);
+  var filteredData = data.filter(data => data.datetime === inputValue);
 
   console.log(filteredData);
 
-  data.html("");
+  tbody.html("");
 
   filteredData.forEach(data =>{
-      console.log(data)
+    //   console.log(data)
       row = tbody.append("tr")
-      Object.entries(person).forEach(([key, value])=>{
-          console.log(key, value)
+      Object.entries(data).forEach(([key, value])=>{
+        //   console.log(key, value)
           row.append("td").text(value)
       })
   })
